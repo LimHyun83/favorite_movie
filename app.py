@@ -1,21 +1,29 @@
+from flask import Flask, render_template, jsonify, request
 import requests
-from bs4 import BeautifulSoup
 
-# URL을 읽어서 HTML를 받아오고,
-headers = {'User-Agent' : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36'}
-data = requests.get('http://www.cine21.com/db/writer/info/?pre_code=E20041947', headers=headers)
+from pymongo import MongoClient  # pymongo를 임포트 하기(패키지 인스톨 먼저 해야겠죠?)
 
-# HTML을 BeautifulSoup이라는 라이브러리를 활용해 검색하기 용이한 상태로 만듦
-soup = BeautifulSoup(data.text, 'html.parser')
+app = Flask(__name__)
 
-# select를 이용해서, tr들을 불러오기
-reviews = soup.select('#write_view_review20_holder > table > tbody > tr')
+client = MongoClient('localhost', 27017)  # mongoDB는 27017 포트로 돌아갑니다.
+db = client.reviewer  # 'reviewer'라는 이름의 db를 만들거나 사용합니다.
 
-# reviews (tr들) 의 반복문을 돌리기
-for review in reviews:
-    # review안에 a가 있으며느,
-    a_tag = review.select_one('td:nth-child(3) > p.mov_tit > a')
-    if a_tag is not None:
-        movie_title = a_tag.text
-        print(movie_title)
 
+@app.route('/')
+def home():
+    return render_template('index.html')
+
+# mongoDB에서 모든 reviewer 데이터 조회하기
+@app.route('/reviewer', methods=['GET'])
+def read_reviewer():
+    # 1. mongoDB에서 _id 값을 제외한 모든 데이터 조회해오기(Read)
+    reviewer_find = db.reviewer.find({}, {'_id': 0})
+
+    # 2. articles라는 키 값으로 articles 정보 보내주기
+    return jsonify({'result': 'success',
+                    'articles': list(articles_find)})
+
+
+
+if __name__ == '__main__':
+    app.run('0.0.0.0', port=5000, debug=True)
