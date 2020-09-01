@@ -1,10 +1,88 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <title>평론가의 영화취향</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css"/>
+        <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+        <style>
 
-</body>
-</html>
+            .title {
+                font: 30;
+            }
+
+            .center {
+                text-align: center;
+            }
+
+            .review-list {
+                width: 500px;
+                margin: 20px auto 0 auto;
+            }
+
+            .card {
+                margin-bottom: 15px;
+            }
+
+
+        </style>
+        <script>
+            $(document).ready(function () {
+                // index.html 로드가 완료되면 자동으로 showStar() 함수를 호출합니다.
+                showReviews();
+            });
+
+            // function showReviews() {
+            //     // #review-box 의 내용을 삭제
+            //     $('#review-box').empty()
+            //
+            //     $.ajax({
+            //         type: 'GET',
+            //         url: '/api/review',
+            //         data: {},
+            //         success: function (response) {
+            //             // reviewes_list 를 reviewes 변수에 저장한다.
+            //             let reviewes = response['reviewes_list']
+            //             // for 문으로 review 차례대로 조회한다.
+            //             for (let i=0; i<reviewes.length; i++) {
+            //                 let review = reviewes[i]
+            //                 // review[i] 요소의 의 키값을 변수값으 활용
+            //                 let reviewer_name = review['reviewer_name']
+            //                 let image_url = review['image_url']
+            //                 let title = review['title']
+            //                 let year = review['year']
+            //                 let score = review['score']
+            //                 let comment = review['comment']
+            //
+            //                 // 프론트에 뿌려질 리뷰를 만듭니다.
+            //                 let tempHtml = `
+            //                     <div class="card">
+            //                         <div>
+            //                             <p>"${title}"</p>
+            //                         </div>
+            //                     </div>
+            //                 `
+            //
+            //                 // #review-box 에 tempHtml 붙임
+            //                 $('#review-box').append(tempHtml)
+            //             }
+            //         }
+            //     });
+            // }
+        </script>
+    </head>
+    <body>
+        <div class="center">
+            <h1 class="title">평론가의 영화취향</h1>
+        </div>
+<!--        <div class="review-list" id="review-box">-->
+<!--            <div class="card">-->
+<!--                <div>-->
+<!--                        <p>자전</p>-->
+<!--                </div>-->
+<!--            </div>-->
+
+<!--        </div>-->
+    </body>
